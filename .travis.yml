@@ -1,0 +1,46 @@
+sudo: required
+
+language: python
+python:
+- '3.6'
+
+services:
+- docker
+
+env:
+  global:
+  - RELEASE_NAME="rttl-admin"
+  - DJANGO_APP="rttl_admin"
+  - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
+  - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
+  - DEPLOY_SCRIPT_BASE=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master
+  - secure:
+  - secure:
+  - secure:
+
+install:
+- docker build --target app-container -t "$IMAGE_TAG" .
+- docker build -t app-test-container .
+
+before_script:
+- pip install coverage
+- pip install coveralls
+
+script:
+- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev" -e "AUTH=SAML_MOCK" app-test-container bash -c ". ./travis-ci/test.sh"
+
+after_success:
+- cp /tmp/.coverage.* .
+- coverage combine
+- coveralls
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: >-
+      curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash
+    on:
+      all_branches: true
+      condition: >-
+        $TRAVIS_PULL_REQUEST == "false" &&
+        $TRAVIS_BRANCH =~ ^(main|qa)$
