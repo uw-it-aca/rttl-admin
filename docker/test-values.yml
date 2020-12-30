@@ -24,11 +24,11 @@ externalService:
   enabled: true
   name: rttl-db-service
   type: ClusterIP
-  serviceAddress: 172.18.1.34
+  serviceAddress: 172.18.1.42
   servicePort: 5432
 database:
   engine: postgres
-  name: rttl-admin-test
+  name: rttl
   hostname: rttl-db-service
   secretName: test.rttl.uw.edu-sql-secrets
 repo: rttl-admin
@@ -65,14 +65,14 @@ externalSecrets:
   enabled: true
   secrets:
     - name: test.rttl.uw.edu-sql-secrets
-      externalKey: axdd/kv/data/rttl/test/sql-secrets
+      externalKey: axdd/kv/data/rttl/admin/test/sql-secrets
       data:
         - name: username
           property: username
         - name: password
           property: password
     - name: test.rttl.uw.edu-ic-certs
-      externalKey: axdd/kv/data/rttl/test/ic-certs
+      externalKey: axdd/kv/data/rttl/admin/test/ic-certs
       data:
         - name: test.rttl.uw.edu-ic.cert
           property: test.rttl.uw.edu-ic.cert
@@ -82,12 +82,12 @@ externalSecrets:
         - name: uw-idp-cert
           property: cert
     - name: test.rttl.uw.edu-secrets
-      externalKey: axdd/kv/data/rttl/test/secrets
+      externalKey: axdd/kv/data/rttl/admin/test/secrets
       data:
         - name: django-secret
           property: django-secret
     - name: test.rttl.uw.edu-shared-secrets
-      externalKey: axdd/kv/data/rttl/shared/secrets
+      externalKey: axdd/kv/data/rttl/admin/shared/secrets
       data:
         - name: canvas-api-token
           property: canvas-api-token
