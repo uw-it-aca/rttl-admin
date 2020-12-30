@@ -56,7 +56,7 @@ class Image(models.Model):
 class Deployment(models.Model):
     id = models.BigAutoField(primary_key=True)
     key = models.TextField(unique=True)
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     release = models.TextField()
     message = models.TextField()
     commit_sha = models.TextField()
@@ -72,7 +72,7 @@ class Deployment(models.Model):
 
 class Token(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     token = models.TextField(unique=True)
     expiry = models.DateTimeField()
 
@@ -82,8 +82,8 @@ class Token(models.Model):
 
 
 class UserCourse(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     class Meta:
         managed = False
@@ -92,8 +92,8 @@ class UserCourse(models.Model):
 
 
 class UserRole(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
 
     class Meta:
         managed = False
@@ -103,8 +103,8 @@ class UserRole(models.Model):
 
 class CourseSettings(models.Model):
     id = models.BigAutoField(primary_key=True)
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, unique=True)
-    image = models.ForeignKey(Images, on_delete=models.DO_NOTHING)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, unique=True)
+    image = models.ForeignKey(Image, on_delete=models.DO_NOTHING)
     storage_capacity = models.TextField()
     cpu_request = models.TextField()
     cpu_limit = models.TextField()
