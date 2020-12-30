@@ -17,6 +17,3 @@ class AdminView(View):
 
 class HomeView(AdminView):
     template_name = 'rttl_admin/home.html'
-
-
-

@@ -1,12 +1,9 @@
 sudo: required
-
 language: python
 python:
 - '3.6'
-
 services:
 - docker
-
 env:
   global:
   - RELEASE_NAME="rttl-admin"
@@ -14,33 +11,26 @@ env:
   - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
   - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
   - DEPLOY_SCRIPT_BASE=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master
-  - secure:
-  - secure:
-  - secure:
-
+  - secure: huo4Tliz3CEhsscAcFQs6vajrSR/GVxJVoT0DxuBF4NeVDhDY8XOnA68Xymh2uXtvnaJTTiB5L7YJQi+jIYZczw5McnrPsqEhm4fLvI2h2hVCFKetzdVtolD1laD0IQQelZAc2WJoFoJvDnBxh6Eux1S+BJ8aeiXi4vLmoryhxIWNNvdTQKjdBwKxH101BTbrWg57A3HoThv0yBoJMEP1c7ZePMW2Pn36tJuQ4wbixhnYR5eVhBIK8vG5GzwLhuQdgT68Vb/b4p6pBIE7knUpDe8gVCz6THjJnZK7CZjvpVlWAchCDMwx8vR4ZHtxqVFP7Bm6da8oytpGOVDfrEw+ADbZScs1wFTfkB1UDAtBeIpE3nITXziXK5avWkITxfEin5m7D34TpvuU+/tzPzpY2SPCMpRnYHfpEsF0YwBzJvZcsZGH3wS60NeGqWG+AYq1U46SbOFMJUVrMwRgfRcb/a+TTRJN+fxssjJp2v+qICIaG67nT3JxoP1/lioqmt+JB5FVagbXn/N5DQcjdHeGgmUWyQiA2B1CaCFrBXctZfzHiOLa3XWC6Eqp4P7lxjA/GwXrC2PqtJDzjrG8OPg08pADBrVh+73oDomqePaDMx1jz8ozJOAdLc07QywAXRshMgpOnWbxWzGWd9BKZiDo2Rgkfh/LMSekB1N7tqPT+g=
+  - secure: h+tEk/0HS9u0vx0kW4Osu5QlDJ8hKk2oZ9LHCy545Nkgn5Y7HPHbrZMD0Sca3zkECpXL8lmFwQjI5sfCv3kN/l2V22cFiKNjc+j3VnGSPzg6XtYbMxzj2W80Ven/EFAGPa4cNJjyX3j5I65Sp/w7sII99JIXw4XDndQ3ST/7cPlKhuA6FgQTWru76X4qkJeU2BJWJZf+BJD3xa9eRdVFCFGNhYT70nAPVzrEG6DZAe0z8vpAtpYATtDjFEMnMQHo9RC/j1l7vHSieHoSM/mDorylSIYjEa1nYX/z0Dxb8w7NNE05aC6R6qH/mPUSJtjUWziPZbEJK6+8ojOb7x4QU8k79oLg+luzJHthLDqmlPSDdvGt1kvqXBysyKedRzOUBtlzEU0xcedjKZbjwm3Ms9nxG1q/uD22Vbk3pF3iNLONL5emoX0IMQ/eZFenTSHN4BcoCNPEV7kAjKlzPrPnyvMvJI2Dh+0jbu85d795lclKrkkq+0+3kkfHW9tw2SNbMYL/3vi0euP+pV+JgMbm5XIyQi/g6r66ZccZwi4EeZyfH+KV4e1HcdvI9YsYDbilesVUSepalo0KT6RvsIrQ2hNqF8w3lZRQmeLtF6Pl++GbE8BPZLQ7MlD3+nG37xaxhmCRJX3jsRezGULM9Ij4PM1wm3FeV0kdlRvWXYUGsWg=
+  - secure: AOFJ4JfDBi8ZTkIiRHFMpciEgOjWhCTckxgDMY5onVxqVkCETSqBKG50Boo39+fe+O7W8KTpCv2cuo3n+sddVs3KuqeuF/u0Sfl28LHWXK9C2CwS5WpUOE5SVC4noiwx90KqLR+J6iHlcdbnWFd5SsL+eiY4sj990uRxnnH36o/oNT2Tn9ax4TB9t/lBboqWeJ9SiB7eePvQiQVNXqUgj6fr9IqrFrKwHzIzYFuZZ5Tqpq1bcheK4Zj75iK3n4mCidgAX7bRe39CqhmQbB2WVFAn3jdCPjVbBFnEOZZmQIo8uxRNQLSTZSHUGH6O6AGKb3thXcGx9rKR/qCwXylX/uTZReUnvRawAtYRAbfFm9dLVbMzOElLAFneqDPgGHOK1pRM6kA4P+vGZCm6RSRLm/BmLzl9KcdY2jcLWStJ/6O9Ad3JayXHOu7l/89uNQHhzu+LtqY++SbM0yC+kGiJyw/yl98MSNsE0nyV7sV23ZT6QsNeyHYp2RlGTNuUir58cwv2kNFW4qcxEObFwKygZrrEU8k5YQq+8Yf6qAP0grHiR71HzmiS8i6r1W/yA+vkqBXrY8GoAnh67Dzx7oE7vToEHyl6i5c2PNhfU4PqzQvmWv4zwLW3qWYSJmXEl3Za7ESSzZwohhJHFgImkJre+YUan6bTfAtrjjj3rEpJ8p4=
 install:
 - docker build --target app-container -t "$IMAGE_TAG" .
 - docker build -t app-test-container .
-
 before_script:
 - pip install coverage
 - pip install coveralls
-
 script:
-- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev" -e "AUTH=SAML_MOCK" app-test-container bash -c ". ./travis-ci/test.sh"
-
+- docker run -u root -it -v /tmp:/coverage -e DJANGO_APP="$DJANGO_APP" -e "ENV=localdev"
+  -e "AUTH=SAML_MOCK" app-test-container bash -c ". ./travis-ci/test.sh"
 after_success:
 - cp /tmp/.coverage.* .
 - coverage combine
 - coveralls
-
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: >-
-      curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash
-    on:
-      all_branches: true
-      condition: >-
-        $TRAVIS_PULL_REQUEST == "false" &&
-        $TRAVIS_BRANCH =~ ^(main|develop)$
+- provider: script
+  skip_cleanup: true
+  script: curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash
+  on:
+    all_branches: true
+    condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH =~ ^(main|develop)$

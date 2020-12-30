@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'Django>=2.2.13,<3.0',
         'psycopg2<3.0',
+        'djangorestframework>=3.11.1,<3.12.0',
         'uw-memcached-clients>=1.0.5,<2.0',
         'UW-Django-SAML2>=1.5.1,<2.0',
         'UW-RestClients-Core>=1.3.3,<2.0',
