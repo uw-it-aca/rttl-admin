@@ -1,4 +1,8 @@
 from django.db import models
+from django.conf import settings
+from uw_canvas.users import Users as CanvasUsers
+from uw_canvas.courses import Courses as CanvasCourses
+from restclients_core.exceptions import DataFailureException
 
 
 class User(models.Model):
@@ -11,6 +15,10 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+
+    def get_external_data(self):
+        user = CanvasUsers().get_user('sis_login_id:{}'.format(self.username))
+        self.first_name = user.name
 
 
 class Course(models.Model):
@@ -28,6 +36,14 @@ class Course(models.Model):
     class Meta:
         managed = False
         db_table = 'courses'
+
+    def get_external_data(self):
+        course = CanvasCourses().get_course_by_sis_id(self.sis_course_id)
+        self.name = course.name
+        self.code = course.code
+        self.key = self.sis_course_id.lower().replace(' ', '-')
+        self.hub_url = '{}/{}'.format(settings.url, self.key)
+        self.hub_token = ''
 
 
 class Role(models.Model):
