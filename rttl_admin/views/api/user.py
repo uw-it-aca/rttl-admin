@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer
+from uw_canvas.users import Users as Canvas
+from restclients_core.exceptions import DataFailureException
 from rttl_admin.models import User
 from logging import getLogger
 
@@ -12,7 +14,13 @@ logger = getLogger(__name__)
 
 class UserSerializer(ModelSerializer):
     def create(self, validated_data):
-        return User.objects.create(**validated_data)
+        username = validated_data['username']
+        canvas_user = Canvas().get_user('sis_login_id:{}'.format(username))
+
+        user, c = User.objects.get_or_create(username=username, defaults={
+            'first_name': canvas_user.name})
+        user.save()
+        return user
 
     class Meta:
         model = User
@@ -36,8 +44,12 @@ class UserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                serializer.save()
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED)
+            except DataFailureException as ex:
+                return Response(ex.msg, status=ex.status)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, *args, **kwargs):
