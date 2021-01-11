@@ -7,7 +7,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ModelSerializer
 from uw_canvas.courses import Courses as Canvas
 from restclients_core.exceptions import DataFailureException
-from rttl_admin.models import Course
+from rttl_admin.models import (
+    Course, User, UserCourse, CourseSettings, CourseExtraEnv,
+    CourseGitPullerTarget)
 from logging import getLogger
 import random
 import string
@@ -31,10 +33,13 @@ class CourseSerializer(ModelSerializer):
             'hub_token': ''.join(random.SystemRandom().choice(
                 string.hexdigits) for _ in range(32))})
 
-        # TODO: Create UserCourse
-        # TODO: Create CourseSettings model
-        # TODO: Create CourseExtraEnv model(s)
-        # TODO: Create CourseGitPullerTarget model
+        if created:
+            # TODO: Create UserCourse
+            settings = CourseSettings(course=course)
+            settings.save()
+
+            CourseExtraEnv(course_settings=settings).save()
+            CourseGitPullerTarget(course_settings=settings).save()
 
         return course
 
