@@ -10,10 +10,9 @@ env:
   - DJANGO_APP="rttl_admin"
   - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
   - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
-  - DEPLOY_SCRIPT_BASE=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master
-  - secure: iCIKqOsksNLdvyXNTKJ8p+3tK3qd9/VY/vP5bmvMoU/Fp7TH61jE2FneNLlmhVW0NxP8d/X0SjO5INJTaE7ZrCZojXB/+SPU0C3ITAIdvQpPcNeeMoePNXwkaowzD1Pwd/swMCht+S1xtTH0qf3AV/ZESj2AuskRwOXOdD30h2MZVkeywRV+7Uyv87Zni+jmt9H+z+Wf69tInTdPvC8GYAWchRiLkyeMwxceIHuCLybKCdai0i6mVHKIL6iLpJKLYuFymoq2p6ymzBa2WZXesAzAw/UflvDXjk895U17JOHafAM9c24hUO+vkGhZyU9sehrNEZdSIGaA2oJFVVqbeUY0fDerY3Kc3HcmT1nw4KcUWTgEVu4uHV2d1JpJ1H/yjT52Pw5XlTz0zq7whCZHxOsU3P8taiqmuZromf9IGhLpNEKpyAwSC+zbTG23/J4DJC5tDRtIYDaLV0nucG3aw8/zmb9cSoSjkilQSS9I0WCDRYG0mTcztOuEedzBvaRS5eS+kPYiVIFcELXHxDKC1ZZZtCGfa/Wjec9V0qNrWDWpWMcqj0oCNaRql3NBeSwl7MjiyHzRIs95bS5sx4gCocv56YEFJQMMaKcvA4HG9SQhL5P2lakHzR70SUzb63TljsujYtUHoBPjX9ZYwyH6LY8MdBaiF2xIN9Lyc3WVQTY=
-  - secure: GvxQrKGGaHQA158OYi6bebchJlGFz52KPatMWz2x+brxsQvWxXJLENatXm/YNeegLy+JFCv6W8XHQ6REWNqGMYDFfnFhgz0xcvyyGZ8bwpugb01SAqBvx+QBbTqNP3rhqToWPGq7Jbb0MMrOHsEhatJSWRGHNWQLrRnogdJV+crmrFRpS1yXh+RV7ItiTGl5bNi3ssPBt5+paEFLDV8//QIn/fVfvIf37gaVC3QjmqVCdC0vwbrWLwOlt0NoeEny30tXxOFkuRSenioFj6cESzy8DwM/OtlwvLJPpztqVjUhm+Xcs3i9I6soH1ZVINVc6tFZz8JK8/k/GcxVwM20u/gLxhxjfFgy3H61Ixuj9EqGP1GXojtNq370xN4bKY6PJ82FMmXVk7XveyWfU5NUz7u0tLfY3OZdFTQWZtFqb3sCS9s/QMJzMqJGHbieF8z0X+qwo9nX19l9BZ8O2lAzZgQ5oX+bvT6Wwy8R9vc+MHLWelSkcvAG+/qtIgXuZFYUmAXHLvyBEBRmlWyfzv/pKP/qL/jN8ph9A630BL0QOyHDl7N7gA5WhGKYXj77u5hbGxa2NfbB2oCb33lXGM2twMkKT24D34F3oZ3L1DhjSHX7nEqFkZIuwkJKOmiDa+ht3mYNNtgjdI1Zfsx/MD6bQwzrJr3p6JT5jVhEzfgWaTs=
-  - secure: dWqQcZ9GtEP2o/gdjGaRaF1N6XyraHHbtrnelifhHf56acURHg5xdY1Nh8U97HIiDUXuYHD8EYH3ESu02wMDf6HVeCj+0AIxlNq/h/jrBGHGn6vqRT6CZer9R63dm2Rb4tk9VFje/Q9kZaKWeqIpRzQlfhEv+QJPT9z46SF/AQs756WbDic1tlMs6B/cH2m8LLh+JBNtg3njIdiatE1ww3ZwVSHmYDvpLAGRcm2UFzzBAD5CcmWJzMZSqM6qytCcv5NiKW3QVeTP8K2hl4Y+mNjwRzgNFgMiFyM04IgAgGvBFV88HE4YKPp7QJKw9VOv8yWICwds6MtonKELr0o+7WSc8+NMXcmJbcp4OVlUI+A0L0/e24vgZ1TvjJ4NNyGVJGJ0uavPbYf/omt7kHDCIaAbL4LoygC6d/Y4zRWZSmx6nujQchIXm/MnUdigp5gfL0gz0qnTWJtK8y+VK74XMkv3Pyn1El8g2DsxTSKqD+3wP+zxKadvw6j8SQaS4eHxDUVivJh40xvyPjwwksvMvCopxa0H4J9r0xiFPgEmkzzuCaMFDBjGivqenmRs/VeyW3zszbogwmPPOEuAtKZxqhPoH1EZoZxcgj5ZMy+XkJZ/bF07tsgosEAaoG/ArMsS8N+Yp3Bh4Q7zJ2EjP8qUj30DOIBh4Ipxy7KXtHEQNLY=
+  - DEPLOY_SCRIPT=https://raw.githubusercontent.com/uw-it-aca/gcp-app-deploy/master/travis-ci/deploy.sh
+  - GCP_JSON_KEY=gcp.json
+  - secure: wtmefjJBiOrY9k7s38MczHz87upjLZWa/sy6ZHgkOkLt1wbBkFzJdnx59g8czhwE1BeQ7oRXoCgiO6HStJRzouCDcHzmGBcPiH2eNVC8mWsNSlspCUxY/7/qpQTOxUP/QVfB388tcc52f1BHWVluvCHU2VR7TUok/J+8EEpjQHp6tjMvQkGK/6w8Y8c79Qq6XqOG1eg9WPZFmAC9z53TJBUmnnmpG20tLc7m/PS6/0EjeVCQR0wxPcFyMdmBN3h20IU03Q9hSc7nIuJeUjQQOAEyVZOM+Jhf8REEJkfFKZBdDBZQwQWkKhpfmhhjcyELF9D8pPUR4HyK1JjgtzkC5P1wh6yrOdifB5RdcYwkFMbyWKx2l1CX70Pz6gYJzf79XzSNUszDgl00IAVpQYOzslOIAe0QPRW1c8KSyUdQkdU12RLmkzzlWHrR2UDtiMhO9oYn1tR/jyguIyc6trDm+nQGveFcIMQxY3VhE6hcHSvmnT0tcJUq106pZfXkAsky0MPGHfL5M6JRE/Hr+ZaSNgovRJldHpiFNtgXK31pZqkUta4+5xmMwNjR5rok2vXuVnf2Wo4Bf5uBFvjgMuExDbRvNhVLIntrwQHBRJ9Tiosx2fJCGeZoTMJXa5/qdrLTbK4pI/08egKzvtMG85osxe13PI4WKNtxilazVMYQn2M=
 install:
 - docker build --target app-container -t "$IMAGE_TAG" .
 - docker build -t app-test-container .
@@ -27,10 +26,12 @@ after_success:
 - cp /tmp/.coverage.* .
 - coverage combine
 - coveralls
+- openssl aes-256-cbc -K $encrypted_0e718fcdeb51_key -iv $encrypted_0e718fcdeb51_iv
+  -in gcp.json.enc -out gcp.json -d
 deploy:
 - provider: script
   skip_cleanup: true
-  script: curl -Ls ${DEPLOY_SCRIPT_BASE}/travis-ci/deploy.sh | bash
+  script: curl -Ls "$DEPLOY_SCRIPT" | bash
   on:
     all_branches: true
     condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH =~ ^(main|develop)$
