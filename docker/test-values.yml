@@ -34,7 +34,7 @@ database:
 repo: rttl-admin
 instance: test
 image:
-  repository: registry.hub.docker.com/acait/rttl-admin
+  repository: gcr.io/uwit-mci-axdd/rttl-admin-django
   tag: IMAGE_TAG
 memcached:
   enabled: true
