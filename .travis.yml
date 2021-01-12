@@ -6,7 +6,7 @@ services:
 - docker
 env:
   global:
-  - RELEASE_NAME="rttl-admin-django"
+  - RELEASE_NAME="rttl-admin"
   - DJANGO_APP="rttl_admin"
   - COMMIT_HASH="$(git rev-parse --short=7 HEAD)"
   - IMAGE_TAG="${RELEASE_NAME}:${COMMIT_HASH}"
