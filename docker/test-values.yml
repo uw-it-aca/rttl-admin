@@ -1,12 +1,12 @@
 ingress:
   enabled: true
   tls:
-    notify:
+    rttl-admin:
       secretName: test-admin.rttl.uw.edu-ingress-cert
       hosts:
         - test-admin.rttl.uw.edu
   hosts:
-    notify:
+    rttl-admin:
       host: test-admin.rttl.uw.edu
       paths:
         - "/"
