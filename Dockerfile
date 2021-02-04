@@ -1,4 +1,4 @@
-FROM acait/django-container:1.2.5 as app-container
+FROM gcr.io/uwit-mci-axdd/django-container:1.2.7 as app-container
 
 USER root
 
@@ -17,7 +17,7 @@ ADD --chown=acait:acait docker/ project/
 RUN . /app/bin/activate && pip install nodeenv && nodeenv -p &&\
     npm install -g npm && ./bin/npm install less -g
 
-FROM acait/django-test-container:1.2.5 as app-test-container
+FROM gcr.io/uwit-mci-axdd/django-test-container:1.2.7 as app-test-container
 
 COPY --from=app-container /app/ /app/
 COPY --from=app-container /static/ /static/
