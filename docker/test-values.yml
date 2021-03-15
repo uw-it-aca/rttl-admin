@@ -1,0 +1,113 @@
+ingress:
+  enabled: true
+  tls:
+    rttl-admin:
+      secretName: test-admin.rttl.uw.edu-ingress-cert
+      hosts:
+        - test-admin.rttl.uw.edu
+  hosts:
+    rttl-admin:
+      host: test-admin.rttl.uw.edu
+      paths:
+        - "/"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+lifecycle:
+  enabled: true
+  preStop:
+    enabled: true
+affinity:
+   podsSpanNodes: true
+readiness:
+  enabled: true
+securityPolicy:
+  enabled: true
+externalService:
+  enabled: true
+  name: rttl-admin-db-service
+  type: ClusterIP
+  serviceAddress: 172.18.1.42
+  servicePort: 5432
+database:
+  engine: postgres
+  name: rttl
+  hostname: rttl-admin-db-service
+  secretName: test-admin.rttl.uw.edu-sql-secrets
+repo: rttl-admin
+instance: test
+image:
+  repository: gcr.io/uwit-mci-axdd/rttl-admin
+  tag: IMAGE_TAG
+memcached:
+  enabled: true
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+cronjob:
+  enabled: false
+certs:
+  mounted: false
+environmentVariables:
+  - name: ENV
+    value: test
+  - name: WEBSERVER
+    value: nginx
+  - name: CANVAS_ENV
+    value: EVAL
+  - name: AUTH
+    value: SAML
+  - name: SAML_ENTITY_ID
+    value: https://test-admin.rttl.uw.edu/saml2
+  - name: CLUSTER_CNAME
+    value: test-admin.rttl.uw.edu
+  - name: ADMIN_GROUP
+    value: ''
+
+externalSecrets:
+  enabled: true
+  secrets:
+    - name: test-admin.rttl.uw.edu-sql-secrets
+      externalKey: axdd/kv/data/rttl/admin/test/sql-secrets
+      data:
+        - name: username
+          property: username
+        - name: password
+          property: password
+    - name: test-admin.rttl.uw.edu-ic-certs
+      externalKey: axdd/kv/data/rttl/admin/test/ic-certs
+      data:
+        - name: test-admin.rttl.uw.edu-ic.cert
+          property: test-admin.rttl.uw.edu-ic.cert
+    - name: test-admin.rttl.uw.edu-uw-idp-cert
+      externalKey: axdd/kv/data/idp-cert
+      data:
+        - name: uw-idp-cert
+          property: cert
+    - name: test-admin.rttl.uw.edu-secrets
+      externalKey: axdd/kv/data/rttl/admin/test/secrets
+      data:
+        - name: django-secret
+          property: django-secret
+    - name: test-admin.rttl.uw.edu-shared-secrets
+      externalKey: axdd/kv/data/rttl/admin/shared/secrets
+      data:
+        - name: canvas-api-token
+          property: canvas-api-token
+
+environmentVariablesSecrets:
+  djangoSecret:
+    name: DJANGO_SECRET
+    secretName: test-admin.rttl.uw.edu-secrets
+    secretKey: django-secret
+  canvasAPIToken:
+    name: CANVAS_OAUTH_BEARER
+    secretName: test-admin.rttl.uw.edu-shared-secrets
+    secretKey: canvas-api-token
+  samlSPCert:
+    name: SP_CERT
+    secretName: test-admin.rttl.uw.edu-ic-certs
+    secretKey: test-admin.rttl.uw.edu-ic.cert
+  samlIDPCert:
+    name: IDP_CERT
+    secretName: test-admin.rttl.uw.edu-uw-idp-cert
+    secretKey: uw-idp-cert

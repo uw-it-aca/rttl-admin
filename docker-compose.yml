@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  app:
+    environment:
+      ENV: localdev
+      PORT: 8000
+      AUTH: SAML_MOCK
+    restart: always
+    container_name: rttl-admin
+    build:
+      context: .
+      target: app-container
+    volumes:
+      - ./rttl_admin:/app/rttl_admin
+    ports:
+      - "8000:8000"

@@ -1,0 +1,8 @@
+[run]
+source = rttl_admin
+parallel = True
+
+[paths]
+source =
+  rttl_admin/
+  /app/rttl_admin/
